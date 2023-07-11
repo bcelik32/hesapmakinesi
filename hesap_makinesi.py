@@ -10,112 +10,108 @@ pencere.resizable(width=False, height=False)
 
 ekranstr=""
 
-def birkoy():
+def eksikoy():
     global ekranstr
-    ekranstr+="1"
+    ekrancek=ekran.get()
+    ekrancek+="-"
     ekran.delete(0, END)
-    ekran.insert(0,ekranstr)
-
-def ikikoy():
-    global ekranstr
-    ekranstr+="2"
-    ekran.delete(0, END)
-    ekran.insert(0,ekranstr)
+    ekran.insert(0,ekrancek)
 
 def artıkoy():
     global ekranstr
-    ekranstr+="+"
+    ekrancek=ekran.get()
+    ekrancek+="+"
     ekran.delete(0, END)
-    ekran.insert(0,ekranstr)  
-    
-def eksikoy():
+    ekran.insert(0,ekrancek)  
+
+def bolmekoy():
     global ekranstr
-    ekranstr+="-"
+    ekrancek=ekran.get()
+    ekrancek+="/"
     ekran.delete(0, END)
-    ekran.insert(0,ekranstr)
+    ekran.insert(0,ekrancek)
     
 def carpikoy():
     global ekranstr
-    ekranstr+="x"
+    ekrancek=ekran.get()
+    ekrancek+="*"
     ekran.delete(0, END)
-    ekran.insert(0,ekranstr)            
-    
-def bolmekoy():
+    ekran.insert(0,ekrancek)
+
+def birkoy():
     global ekranstr
-    ekranstr+="÷"
+    ekrancek=ekran.get()
+    ekrancek+="1"
     ekran.delete(0, END)
-    ekran.insert(0,ekranstr)     
-    
+    ekran.insert(0,ekrancek)
+
+def ikikoy():
+    global ekranstr
+    ekrancek=ekran.get()
+    ekrancek+="2"
+    ekran.delete(0, END)
+    ekran.insert(0,ekrancek)
+
 def uckoy():
     global ekranstr
-    ekranstr+="3"
+    ekrancek=ekran.get()
+    ekrancek+="3"
     ekran.delete(0, END)
-    ekran.insert(0,ekranstr)    
+    ekran.insert(0,ekrancek)    
     
 def dortkoy():
     global ekranstr
-    ekranstr+="4"
+    ekrancek=ekran.get()
+    ekrancek+="4"
     ekran.delete(0, END)
-    ekran.insert(0,ekranstr) 
+    ekran.insert(0,ekrancek) 
     
 def beskoy():
     global ekranstr
-    ekranstr+="5"
+    ekrancek=ekran.get()
+    ekrancek+="5"
     ekran.delete(0, END)
-    ekran.insert(0,ekranstr)
+    ekran.insert(0,ekrancek)
     
 def altikoy():
     global ekranstr
-    ekranstr+="6"
+    ekrancek=ekran.get()
+    ekrancek+="6"
     ekran.delete(0, END)
-    ekran.insert(0,ekranstr)
+    ekran.insert(0,ekrancek)
 
 def yedikoy():
     global ekranstr
-    ekranstr+="7"
+    ekrancek=ekran.get()
+    ekrancek+="7"
     ekran.delete(0, END)
-    ekran.insert(0,ekranstr)
+    ekran.insert(0,ekrancek)
 
 def sekizkoy():
     global ekranstr
-    ekranstr+="8"
+    ekrancek=ekran.get()
+    ekrancek+="8"
     ekran.delete(0, END)
-    ekran.insert(0,ekranstr)
+    ekran.insert(0,ekrancek)
 
 def dokuzkoy():
     global ekranstr
-    ekranstr+="9"
+    ekrancek=ekran.get()
+    ekrancek+="9"
     ekran.delete(0, END)
-    ekran.insert(0,ekranstr)
+    ekran.insert(0,ekrancek)
 
 def sifirkoy():
     global ekranstr
-    ekranstr+="0"
+    ekrancek=ekran.get()
+    ekrancek+="0"
     ekran.delete(0, END)
-    ekran.insert(0,ekranstr)
-
-def bolmekoy():
-    global ekranstr
-    ekranstr+="÷"
-    ekran.delete(0, END)
-    ekran.insert(0,ekranstr)
-    
-def carpikoy():
-    global ekranstr
-    ekranstr+="*"
-    ekran.delete(0, END)
-    ekran.insert(0,ekranstr)
-    
-def eksikoy():
-    global ekranstr
-    ekranstr+="-"
-    ekran.delete(0, END)
-    ekran.insert(0,ekranstr) 
+    ekran.insert(0,ekrancek)
     
 def virgulkoy():
     global ekranstr
-    ekranstr+="."
-    ekran.delete(0, END)
+    ekrancek=ekran.get()
+    ekrancek+="."
     ekran.insert(0,ekranstr) 
 
 def sifirla():
