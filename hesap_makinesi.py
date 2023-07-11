@@ -1,5 +1,6 @@
 from tkinter import *
 import keyboard
+import continuous_threading as ct
 
 
 pencere = Tk()
@@ -7,36 +8,41 @@ pencere.title("Hesap Makinesi - bcelik32")
 pencere.geometry('365x445')
 pencere.resizable(width=False, height=False)
 
+fun_accept=True
 
 ekranstr=""
-
 def eksikoy():
-    global ekranstr
-    ekrancek=ekran.get()
-    ekrancek+="-"
-    ekran.delete(0, END)
-    ekran.insert(0,ekrancek)
+    if fun_accept:
+        global ekranstr
+        ekrancek=ekran.get()
+        ekrancek+="-"
+        ekran.delete(0, END)
+        ekran.insert(0,ekrancek)
 
+    
 def artıkoy():
-    global ekranstr
-    ekrancek=ekran.get()
-    ekrancek+="+"
-    ekran.delete(0, END)
-    ekran.insert(0,ekrancek)  
+    if fun_accept:
+        global ekranstr
+        ekrancek=ekran.get()
+        ekrancek+="+"
+        ekran.delete(0, END)
+        ekran.insert(0,ekrancek)  
 
 def bolmekoy():
-    global ekranstr
-    ekrancek=ekran.get()
-    ekrancek+="/"
-    ekran.delete(0, END)
-    ekran.insert(0,ekrancek)
+    if fun_accept:
+        global ekranstr
+        ekrancek=ekran.get()
+        ekrancek+="/"
+        ekran.delete(0, END)
+        ekran.insert(0,ekrancek)
     
 def carpikoy():
-    global ekranstr
-    ekrancek=ekran.get()
-    ekrancek+="*"
-    ekran.delete(0, END)
-    ekran.insert(0,ekrancek)
+    if fun_accept:
+        global ekranstr
+        ekrancek=ekran.get()
+        ekrancek+="*"
+        ekran.delete(0, END)
+        ekran.insert(0,ekrancek)
 
 def birkoy():
     global ekranstr
@@ -109,10 +115,12 @@ def sifirkoy():
     ekran.insert(0,ekrancek)
     
 def virgulkoy():
-    global ekranstr
-    ekrancek=ekran.get()
-    ekrancek+="."
-    ekran.insert(0,ekranstr) 
+    if fun_accept:
+        global ekranstr
+        ekrancek=ekran.get()
+        ekrancek+="."
+        ekran.delete(0, END)
+        ekran.insert(0,ekrancek)
 
 def sifirla():
     global ekranstr
@@ -121,12 +129,13 @@ def sifirla():
 
 
 def sonucbul():
-    global ekranstr
-    ekrancek=ekran.get()
-    sonucstr=eval(ekrancek)
-    ekran.delete(0, END)
-    ekran.insert(0,sonucstr)
-    print(sonucstr)      
+    if fun_accept:
+        global ekranstr
+        ekrancek=ekran.get()
+        sonucstr=eval(ekrancek)
+        ekran.delete(0, END)
+        ekran.insert(0,sonucstr)
+        print(sonucstr)      
 
 def sil():
     global ekranstr
@@ -138,6 +147,7 @@ def sil():
 ekran=Entry(pencere)
 ekran.place(x=53,y=7, width=257,height=70)
 ekran.config(text='Sayıları Yazınız', fg='black',font=("Vertana",35))
+
 
 toplamabuton=Button(pencere)
 toplamabuton.pack()
@@ -233,6 +243,31 @@ virgul.pack()
 virgul.place(x=5,y=355,height=85, width=85)
 virgul.config(text=',', bg='#C1BED9',font=("Vertana",26), command=virgulkoy)
 
+def hata_koruma():
+    ekrancek=ekran.get()
+    if not(ekrancek==""):
+        global fun_accept
+        if not(ekrancek[-1]==".") and not(ekrancek[-1]=="*") and not(ekrancek[-1]=="/") and not(ekrancek[-1]=="+") and not(ekrancek[-1]=="-"):
+            fun_accept=True
+            sonuc.configure(state="normal")
+            cikarmabuton.configure(state="normal")
+            toplamabuton.configure(state="normal")
+            carpmabuton.configure(state="normal")
+            bolmeabuton.configure(state="normal")
+            virgul.configure(state="normal")
+
+        else:
+            fun_accept=False
+            sonuc.configure(state="disabled")
+            cikarmabuton.configure(state="disabled")
+            toplamabuton.configure(state="disabled")
+            carpmabuton.configure(state="disabled")
+            bolmeabuton.configure(state="disabled")
+            virgul.configure(state="disabled")
+
+t1 = ct.PeriodicThread(0.1,hata_koruma) # readSerial fonksiyonunu periyodik olarak çalıştır
+
+t1.start()
 keyboard.add_hotkey("Return", sonucbul)
 keyboard.add_hotkey("1", birkoy)
 keyboard.add_hotkey("2", ikikoy)
