@@ -1,18 +1,22 @@
 from tkinter import *
 import keyboard
 import continuous_threading as ct
+from sympy import sympify
 
 
 pencere = Tk()
+pencere.iconbitmap("hesap_makinesi/makine.jpg")
 pencere.title("Hesap Makinesi - bcelik32")
 pencere.geometry('365x445')
 pencere.resizable(width=False, height=False)
 
-fun_accept=True
 
+
+fun_accept=True
+eksi_fun_accept=True
 ekranstr=""
 def eksikoy():
-    if fun_accept:
+    if eksi_fun_accept:
         global ekranstr
         ekrancek=ekran.get()
         ekrancek+="-"
@@ -106,7 +110,7 @@ def dokuzkoy():
     ekrancek+="9"
     ekran.delete(0, END)
     ekran.insert(0,ekrancek)
-
+    
 def sifirkoy():
     global ekranstr
     ekrancek=ekran.get()
@@ -132,10 +136,14 @@ def sonucbul():
     if fun_accept:
         global ekranstr
         ekrancek=ekran.get()
-        sonucstr=eval(ekrancek)
-        ekran.delete(0, END)
-        ekran.insert(0,sonucstr)
-        print(sonucstr)      
+        if ekrancek[0]=="0":
+            sonucstr=sympify(ekrancek[1::])
+            ekran.delete(0, END)
+            ekran.insert(0,sonucstr)
+        else:
+            sonucstr=eval(ekrancek)
+            ekran.delete(0, END)
+            ekran.insert(0,sonucstr)
 
 def sil():
     global ekranstr
@@ -144,9 +152,9 @@ def sil():
     ekran.delete(0, END)
     ekran.insert(0,ekranstr) 
 
-ekran=Entry(pencere)
+ekran=Entry(pencere, justify="right")
 ekran.place(x=53,y=7, width=257,height=70)
-ekran.config(text='Sayıları Yazınız', fg='black',font=("Vertana",35))
+ekran.config(fg='black',font=("Vertana",35))
 
 
 toplamabuton=Button(pencere)
@@ -183,7 +191,7 @@ sonuc=Button(pencere)
 sonuc.pack()
 sonuc.place(x=185,y=355,height=85, width=85)
 sonuc.config(text='=', bg='#C1BED9',font=("Vertana",17),command=sonucbul,)
-pencere.bind('<Enter>', sonucbul)
+
 
 
 
@@ -245,25 +253,34 @@ virgul.config(text=',', bg='#C1BED9',font=("Vertana",26), command=virgulkoy)
 
 def hata_koruma():
     ekrancek=ekran.get()
-    if not(ekrancek==""):
+    if (ekrancek):
         global fun_accept
-        if not(ekrancek[-1]==".") and not(ekrancek[-1]=="*") and not(ekrancek[-1]=="/") and not(ekrancek[-1]=="+") and not(ekrancek[-1]=="-"):
+        global eksi_fun_accept
+        if (not(ekrancek[-1]==".") and not(ekrancek[-1]=="*") and not(ekrancek[-1]=="/") and not(ekrancek[-1]=="+") and not(ekrancek[-1]=="-")):
             fun_accept=True
+            eksi_fun_accept=True
             sonuc.configure(state="normal")
             cikarmabuton.configure(state="normal")
             toplamabuton.configure(state="normal")
             carpmabuton.configure(state="normal")
             bolmeabuton.configure(state="normal")
             virgul.configure(state="normal")
-
         else:
             fun_accept=False
+            eksi_fun_accept=False
             sonuc.configure(state="disabled")
             cikarmabuton.configure(state="disabled")
             toplamabuton.configure(state="disabled")
             carpmabuton.configure(state="disabled")
             bolmeabuton.configure(state="disabled")
             virgul.configure(state="disabled")
+    else:
+        fun_accept=False
+        sonuc.configure(state="disabled")
+        toplamabuton.configure(state="disabled")
+        carpmabuton.configure(state="disabled")
+        bolmeabuton.configure(state="disabled")
+        virgul.configure(state="disabled")   
 
 t1 = ct.PeriodicThread(0.1,hata_koruma) # readSerial fonksiyonunu periyodik olarak çalıştır
 
